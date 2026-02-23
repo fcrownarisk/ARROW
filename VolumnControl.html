@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ARROW tv 3A - Official Soundtrack</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #222;
+            flex-direction: column;
+        }
+        canvas {
+            border: 2px solid #fff;
+            background: #000;
+        }
+        .controls {
+            margin-top: 20px;
+            color: #fff;
+            font-family: monospace;
+        }
+        .now-playing {
+            margin-top: 10px;
+            color: #ff0;
+            font-family: monospace;
+        }
+        input[type=range] {
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <div class="controls">
+        <label>Volume: <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5"></label>
+    </div>
+    
+    <div class="now-playing" id="nowPlaying">
+        Now Playing: ARROW tv Main Theme
+    </div>
+
+    <script type="module">
+        import { ArrowTVGame } from './game.js';
+        import { soundtrack } from './soundtrack.js';
+
+        // Initialize game
+        const game = new ArrowTVGame('gameCanvas');
+        
+        // Volume control
+        document.getElementById('volume').addEventListener('input', (e) => {
+            const vol = parseFloat(e.target.value);
+            game.setGameVolume(vol);
+        });
+        
+        // Update now playing display
+        setInterval(() => {
+            const current = soundtrack.getCurrentTrack();
+            if (current) {
+                document.getElementById('nowPlaying').textContent = 
+                    `Now Playing: ${current.metadata.title} by ${current.metadata.composer}`;
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
