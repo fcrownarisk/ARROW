@@ -2,7 +2,7 @@
 // ARROW tv-style game with shooter mechanics and path integral visualizer (simplified)
 // Uses AudioManager for sound effects and music
 
-import { AudioManager } from './Audio.js';
+import 'Audio.ts'
 
 // -------------------- Types & Constants --------------------
 const CANVAS_WIDTH = 800;
@@ -443,5 +443,6 @@ export class ArrowTVGame {
 window.onload = () => {
     new ArrowTVGame('gameCanvas');
 };
+
 
 
